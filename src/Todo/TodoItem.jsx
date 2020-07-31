@@ -6,7 +6,13 @@ import { Images } from "../assets";
 
 function TodoItem(props) {
   const classes = useStyles();
-  const { text, itemIsChecked, onDeleteItem, onToggleItem } = props;
+  const {
+    text,
+    itemIsChecked,
+    itemIsCompleted,
+    onDeleteItem,
+    onToggleItem,
+  } = props;
 
   return (
     <div className={classes.root}>
@@ -22,7 +28,11 @@ function TodoItem(props) {
         >
           {itemIsChecked && <img src={Images.CheckSolid} alt="" width="14" />}
         </div>
-        <div className={classes.text}>{text}</div>
+        {itemIsCompleted ? (
+          <del className={classes.text}>{text}</del>
+        ) : (
+          <div className={classes.text}>{text}</div>
+        )}
       </div>
       <div
         className={classes.closeButton}
@@ -39,6 +49,7 @@ function TodoItem(props) {
 TodoItem.propTypes = {
   text: PropTypes.string.isRequired,
   itemIsChecked: PropTypes.bool.isRequired,
+  itemIsCompleted: PropTypes.bool.isRequired,
   onDeleteItem: PropTypes.func.isRequired,
   onToggleItem: PropTypes.func.isRequired,
 };
